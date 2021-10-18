@@ -1,17 +1,14 @@
 #pragma once
 #include "SDL.h"
 #include "SDL_image.h"
+#include <iostream>
 #include <map>
-  
 
 class TextureManager 
 {
-  private:
-  TextureManager() {}
-  //~TextureManager() {}
-  static TextureManager* s_pInstance;
-  
   public:
+   ~TextureManager() {}
+   
     static TextureManager* Instance()
    {
       if (s_pInstance == 0) 
@@ -28,12 +25,17 @@ class TextureManager
 
     void drawFrame(std::string id, int x, int y, int width, int height,
         int currentRow, int currentFrame,
-        SDL_Renderer* pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE);   
-   
+        SDL_Renderer* pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE); 
+
+    void drawFrameRotate(std::string id, int x, int y, int width, int height,
+        int currentRow, int currentFrame,
+        SDL_Renderer* pRenderer, float angle, SDL_RendererFlip flip = SDL_FLIP_NONE); 
   private:
+    TextureManager() {}
+
+    static TextureManager *s_pInstance;
     std::map<std::string, SDL_Texture*> m_textureMap;
 
-  
 };
 
 typedef TextureManager TheTextureManager;
